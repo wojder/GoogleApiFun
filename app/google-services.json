@@ -1,0 +1,63 @@
+{
+  "project_info": {
+    "project_number": "985932319449",
+    "firebase_url": "https://winter-cargo-187418.firebaseio.com",
+    "project_id": "winter-cargo-187418",
+    "storage_bucket": "winter-cargo-187418.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:985932319449:android:524836ab08b5a800",
+        "android_client_info": {
+          "package_name": "com.wojder.googleapifun"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "985932319449-89o29sh30c735bft3f303ne9asa4dt50.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.wojder.googleapifun",
+            "certificate_hash": "16e56abf9becf3db5e60888b6bf85e03ffb3c3cf"
+          }
+        },
+        {
+          "client_id": "985932319449-ef19alrfkjm8dqa1j7vpcb7ufagbsrus.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.wojder.googleapifun",
+            "certificate_hash": "212a7906b0afe803728c7fe7a7558aea316b8f98"
+          }
+        },
+        {
+          "client_id": "985932319449-tpgc4eckqjbmv4ffcqvjv3uv8qckq9b9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDxS45KTXRojBFIRXO8Waqr2rKsvsVWMeY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "985932319449-tpgc4eckqjbmv4ffcqvjv3uv8qckq9b9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
