@@ -15,4 +15,5 @@
     </string>
     <string name="title_activity_logout">LogoutActivity</string>
     <string name="log_me_out">Log me out</string>
+    <string name="sign_in">Sign in</string>
 </resources>
