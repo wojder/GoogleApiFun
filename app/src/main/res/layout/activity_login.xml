@@ -72,6 +72,17 @@
                 android:padding="16dp"
                 android:text="@string/sign_in"
                 android:visibility="visible" />
+            <Button
+                android:id="@+id/buttonGetDeviceId"
+                style="?android:textAppearanceSmall"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:padding="16dp"
+                android:text="@string/getDeviceId"
+                android:visibility="visible"
+                android:fontFamily="@string/common_google_play_services_enable_button"
+                android:background="@color/colorPrimary"/>
 
             <com.google.android.gms.common.SignInButton
                 android:id="@+id/sign_in_button"

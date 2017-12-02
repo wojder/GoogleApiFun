@@ -26,7 +26,10 @@
         <activity
             android:name=".LogoutActivity"
             android:label="@string/title_activity_logout"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".GetDevIdActivity"
+            android:label="@string/title_activity_get_dev_id"></activity>
     </application>
 
 </manifest>
