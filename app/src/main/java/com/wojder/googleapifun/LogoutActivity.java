@@ -19,9 +19,16 @@ public class LogoutActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_logout);
         Toolbar toolbar = findViewById(R.id.toolbar);
-        Button logoutButton = findViewById(R.id.logoutButton);
         setSupportActionBar(toolbar);
 
+        Button logoutButton = findViewById(R.id.logoutButton);
+        Button getDeviceIdButton = findViewById(R.id.buttonGetDevId);
+
+        getDeviceIdButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(LogoutActivity.this, GetDevIdActivity.class));
+        }});
 
         logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
