@@ -27,6 +27,7 @@ ext.gitVersioner = [
         snapshotEnabled : false,
         localChangesCountEnabled : false,
 
+
 ]
 
 apply from: 'https://raw.githubusercontent.com/passsy/gradle-GitVersioner/master/git-versioner.gradle'

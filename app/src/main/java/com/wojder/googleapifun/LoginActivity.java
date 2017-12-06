@@ -54,6 +54,8 @@ import com.google.firebase.perf.metrics.Trace;
 import io.fabric.sdk.android.Fabric;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
@@ -108,7 +110,18 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         populateAutoComplete();
         mAuth = FirebaseAuth.getInstance();
 
-        Toast.makeText(this, BuildConfig.GIT_SHA, Toast.LENGTH_LONG).show();
+        //Toast.makeText(this, BuildConfig.GIT_SHA, Toast.LENGTH_SHORT).show();
+
+        try {
+            String versionNameFromGradle = this.getPackageManager()
+                    .getPackageInfo(this.getPackageName(), 0).versionName;
+            Toast.makeText(this, versionNameFromGradle, Toast.LENGTH_LONG).show();
+
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+
+
 
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -132,13 +145,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         });
 
         Button emailPasswordButton = findViewById(R.id.buttonLoginPassword);
-//        Button getDeviceIdButton = findViewById(R.id.buttonGetDevId);
-//
-//        getDeviceIdButton.setOnClickListener(new OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                startActivity(new Intent(LoginActivity.this, GetDevIdActivity.class));
-//        }});
 
         emailPasswordButton.setOnClickListener(new OnClickListener() {
             @Override
@@ -155,7 +161,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         googleSignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                //attemptLogin();
                 signIn();
             }
         });
@@ -183,7 +188,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 .build();
 
             }
-
 
     private void signIn() {
         Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
@@ -364,13 +368,41 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     }
 
     private boolean isEmailValid(String email) {
-        //TODO: Replace this with your own logic
-        return email.contains("@");
+        boolean isValid = false;
+        if (email.length() > 3 && email.contains("@")){
+            isValid = true;
+        }
+
+        return isValid;
     }
 
     private boolean isPasswordValid(String password) {
-        //TODO: Replace this with your own logic
-        return password.length() > 4;
+        boolean isValid;
+        Pattern pattern, patternNumbers;
+        Matcher matcher;
+        final String PSWD_PATTERN_ALL = "^(?=.*[0-9])(?=.*[A-Z])(?=.*[@#$%^&+=!])(?=\\S+$).{4,}$";
+        final String PSWD_PATTERN_NUMBERS = "^(?=.*[0-9])(?=.*[A-Z]).{4,}$";
+
+        //CharSequence inputPassword = password;
+        pattern = Pattern.compile(PSWD_PATTERN_ALL, Pattern.CASE_INSENSITIVE);
+        patternNumbers = Pattern.compile(PSWD_PATTERN_NUMBERS, Pattern.CASE_INSENSITIVE);
+        matcher = pattern.matcher(password);
+        Matcher matcherNumbers = patternNumbers.matcher(password);
+
+        if (matcher.matches()) {
+            isValid = true;
+            Toast.makeText(this, R.string.valid_password, Toast.LENGTH_LONG).show();
+        } else if (matcherNumbers.matches()) {
+            isValid = false;
+            Toast.makeText(this, R.string.invalid_password, Toast.LENGTH_LONG).show();
+        }
+    else {
+            isValid = false;
+            Toast.makeText(this, R.string.insecure_password, Toast.LENGTH_LONG).show();
+
+        }
+
+        return isValid;
     }
 
     /**
