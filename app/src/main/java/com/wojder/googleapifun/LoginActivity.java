@@ -146,6 +146,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         Button emailPasswordButton = findViewById(R.id.buttonLoginPassword);
 
+        //********************testing trace***********************************
+        Trace myTrace = FirebasePerformance.getInstance().newTrace("test_trace");
+        myTrace.start();
+
         emailPasswordButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -153,11 +157,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             }
         });
 
-        //********************testing trace***********************************
-        Trace myTrace = FirebasePerformance.getInstance().newTrace("test_trace");
-        myTrace.start();
-
-        SignInButton googleSignInButton = (SignInButton) findViewById(R.id.sign_in_button);
+        SignInButton googleSignInButton = findViewById(R.id.sign_in_button);
         googleSignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -166,7 +166,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         });
 
         myTrace.stop();
-        //********************testing trace***********************************
+        //********************end of trace testing***********************************
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
@@ -287,7 +287,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         }
     }
 
-
     /**
      * Attempts to sign in or register the account specified by the login form.
      * If there are form errors (invalid email, missing fields, etc.), the
@@ -325,20 +324,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                                         Toast.LENGTH_SHORT).show();
                                 updateUI(null);
                             }
-
-                            // ...
                         }
                     });
         }
 
-        // Check for a valid password, if the user entered one.
-        if (!TextUtils.isEmpty(password) && !isPasswordValid(password)) {
-            mPasswordView.setError(getString(R.string.error_invalid_password));
-            focusView = mPasswordView;
-            cancel = true;
-        }
-
-        // Check for a valid email address.
+        // Check for a valid email address and next check password
         if (TextUtils.isEmpty(email)) {
             mEmailView.setError(getString(R.string.error_field_required));
             focusView = mEmailView;
@@ -347,13 +337,20 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             mEmailView.setError(getString(R.string.error_invalid_email));
             focusView = mEmailView;
             cancel = true;
+        } else {
+            // Check for a valid password, if the user entered one.
+            if (!TextUtils.isEmpty(password) && !isPasswordValid(password)) {
+                mPasswordView.setError(getString(R.string.error_invalid_password));
+                focusView = mPasswordView;
+                cancel = true;
+            }
         }
 
         if (cancel) {
             // There was an error; don't attempt login and focus the first
             // form field with an error.
             focusView.requestFocus();
-        } else {
+        } else if (!cancel && isPasswordValid(password)){
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
             showProgress(true);
@@ -378,30 +375,41 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     private boolean isPasswordValid(String password) {
         boolean isValid;
-        Pattern pattern, patternNumbers;
-        Matcher matcher;
-        final String PSWD_PATTERN_ALL = "^(?=.*[0-9])(?=.*[A-Z])(?=.*[@#$%^&+=!])(?=\\S+$).{4,}$";
-        final String PSWD_PATTERN_NUMBERS = "^(?=.*[0-9])(?=.*[A-Z]).{4,}$";
+        Pattern pattern, patternNumbers, patternSpecials, patternBigCase;
+        Matcher matcher, matcherNumbers, matcherSpecials, matcherBigCase;
+        final String PSWD_PATTERN_ALL = "(.*?.*\\d.*)(?=.*[A-Z].*)(.*?.*[!@#$%^&*()_+={}:;,.\\[\\]\\-].*)";
+        final String PSWD_PATTERN_NUMBERS = "(.*[A-Z].*)(.*?.*[!@#$%^&*()_+={}:;,.\\[\\]\\-].*)";
+        final String PSWD_PATTERN_SPECIALS = "(.*?.*\\d.*)(.*?.*?.*[A-Z].*)";
+        final String PSWD_PATTERN_BIG_CASE = "(.*?.*\\d.*)(.*?.*[!@#$%^&*()_+={}:;,.\\[\\]\\-].*)";
 
         //CharSequence inputPassword = password;
         pattern = Pattern.compile(PSWD_PATTERN_ALL, Pattern.CASE_INSENSITIVE);
-        patternNumbers = Pattern.compile(PSWD_PATTERN_NUMBERS, Pattern.CASE_INSENSITIVE);
+        patternNumbers = Pattern.compile(PSWD_PATTERN_NUMBERS);
+        patternSpecials = Pattern.compile(PSWD_PATTERN_SPECIALS, Pattern.CASE_INSENSITIVE);
+        patternBigCase = Pattern.compile(PSWD_PATTERN_BIG_CASE, Pattern.CASE_INSENSITIVE);
         matcher = pattern.matcher(password);
-        Matcher matcherNumbers = patternNumbers.matcher(password);
+        matcherNumbers = patternNumbers.matcher(password);
+        matcherSpecials = patternSpecials.matcher(password);
+        matcherBigCase = patternBigCase.matcher(password);
 
         if (matcher.matches()) {
             isValid = true;
             Toast.makeText(this, R.string.valid_password, Toast.LENGTH_LONG).show();
-        } else if (matcherNumbers.matches()) {
-            isValid = false;
-            Toast.makeText(this, R.string.invalid_password, Toast.LENGTH_LONG).show();
+        } else {
+            if (matcherNumbers.matches()) {
+                isValid = false;
+                Toast.makeText(this, R.string.invalid_password_numbers, Toast.LENGTH_LONG).show();
+            } else if (matcherSpecials.matches()) {
+                isValid = false;
+                Toast.makeText(this, R.string.invalid_password_specials, Toast.LENGTH_LONG).show();
+            } else if (matcherBigCase.matches()) {
+                isValid = false;
+                Toast.makeText(this, R.string.invalid_password_big_case, Toast.LENGTH_LONG).show();
+            } else {
+                isValid = false;
+                Toast.makeText(this, R.string.insecure_password, Toast.LENGTH_LONG).show();
+            }
         }
-    else {
-            isValid = false;
-            Toast.makeText(this, R.string.insecure_password, Toast.LENGTH_LONG).show();
-
-        }
-
         return isValid;
     }
 
