@@ -7,6 +7,7 @@
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
     <application
         android:allowBackup="true"
@@ -29,8 +30,8 @@
             android:label="@string/title_activity_logout"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".GetDevIdActivity"
-            android:label="@string/title_activity_get_dev_id"></activity>
+            android:name=".GetDevInfoActivity"
+            android:label="@string/title_activity_get_dev_id" />
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="1a7d5e8aa36208545003bc137cbc70742556e757" />

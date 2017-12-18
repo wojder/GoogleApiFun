@@ -95,4 +95,6 @@
     <string name="invalid_password_numbers">Your password should contain at least two numbers and two special signs</string>
     <string name="invalid_password_specials">Use special signs to strengthen Your password</string>
     <string name="invalid_password_big_case">Use at least two big letters</string>
+    <string name="device_id">Device ID</string>
+    <string name="device_emei_number">number</string>
 </resources>

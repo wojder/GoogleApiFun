@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/mainView">
+
+
+    <TextView
+        android:id="@+id/deviceIdName"
+        android:layout_width="0dp"
+        android:layout_height="36dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:fontFamily="monospace"
+        android:textSize="12pt"
+        android:textStyle="bold"
+        android:text="@string/device_id"
+        app:layout_constraintBaseline_toBaselineOf="@+id/deviceIdNumber"
+        app:layout_constraintEnd_toStartOf="@+id/deviceIdNumber"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/deviceIdNumber"
+        android:layout_width="0dp"
+        android:layout_height="36dp"
+        android:layout_marginEnd="16dp"
+        android:fontFamily="monospace"
+        android:textSize="12pt"
+        android:text="@string/device_emei_number"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/deviceIdName"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</android.support.constraint.ConstraintLayout>
