@@ -1,36 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mainView"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:id="@+id/mainView">
-
+    android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/deviceIdName"
         android:layout_width="0dp"
-        android:layout_height="36dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="14dp"
         android:layout_marginEnd="16dp"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="238dp"
         android:fontFamily="monospace"
-        android:textSize="12pt"
-        android:textStyle="bold"
         android:text="@string/device_id"
-        app:layout_constraintBaseline_toBaselineOf="@+id/deviceIdNumber"
+        android:textSize="10pt"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/bleMacAddress"
         app:layout_constraintEnd_toStartOf="@+id/deviceIdNumber"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/deviceIdNumber"
         android:layout_width="0dp"
-        android:layout_height="36dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="14dp"
         android:layout_marginEnd="16dp"
+        android:layout_marginTop="238dp"
         android:fontFamily="monospace"
-        android:textSize="12pt"
         android:text="@string/device_emei_number"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:textSize="7pt"
+        app:layout_constraintBottom_toTopOf="@+id/bleMacAddressNumber"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/deviceIdName"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/bleMacAddress"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="153dp"
+        android:layout_marginEnd="17dp"
+        android:layout_marginStart="16dp"
+        android:fontFamily="monospace"
+        android:text="@string/device_ble_mac_address"
+        android:textSize="10pt"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/bleMacAddressNumber"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/deviceIdName" />
+
+    <TextView
+        android:id="@+id/bleMacAddressNumber"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="154dp"
+        android:layout_marginEnd="16dp"
+        android:fontFamily="monospace"
+        android:text="@string/device_ble_mac_address_number"
+        android:textSize="7pt"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/bleMacAddress"
+        app:layout_constraintTop_toBottomOf="@+id/deviceIdNumber" />
 
 </android.support.constraint.ConstraintLayout>

@@ -97,4 +97,6 @@
     <string name="invalid_password_big_case">Use at least two big letters</string>
     <string name="device_id">Device ID</string>
     <string name="device_emei_number">number</string>
+    <string name="device_ble_mac_address">BL mac </string>
+    <string name="device_ble_mac_address_number">ble mac </string>
 </resources>

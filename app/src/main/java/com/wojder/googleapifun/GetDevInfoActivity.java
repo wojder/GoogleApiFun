@@ -1,5 +1,7 @@
 package com.wojder.googleapifun;
 
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothManager;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -28,9 +30,20 @@ public class GetDevInfoActivity extends AppCompatActivity {
     @BindView(R.id.mainView)
     View mLayout;
 
+    @BindView(R.id.bleMacAddress)
+    TextView bleMacAddressName;
+
+    @BindView(R.id.bleMacAddressNumber)
+    TextView bleMacAddressNumber;
+
+
+
     public static final String TAG = GetDevInfoActivity.class.getSimpleName();
     public static final int REQUEST_PHONE_INFO = 0;
+    private static final int REQUEST_BL_ADMIN = 1;
+
     String deviceEmei = null;
+    String bleMacAddress = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,13 +53,32 @@ public class GetDevInfoActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         getDeviceEmeiNumber();
+        getDeviceBleMacAddress();
 
         devIdNumber.setText(deviceEmei);
+        bleMacAddressNumber.setText(bleMacAddress);
+    }
+
+    private String getDeviceBleMacAddress() {
+
+            //if (ActivityCompat.checkSelfPermission(this, Manifest.permission.BLUETOOTH_ADMIN) == PackageManager.PERMISSION_GRANTED) {
+                BluetoothManager ba = (BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);
+                BluetoothAdapter adapter = BluetoothAdapter.getDefaultAdapter();
+
+                //bleMacAddress = ba.getAdapter().getAddress();
+                bleMacAddress = adapter.getAddress();
+            //} else {
+            //    requestBlePermission();
+            //}
+        Log.i(TAG, "Device BL mac address is: " + bleMacAddress);
+        return bleMacAddress;
+    }
+
+    private void requestBlePermission() {
+        
     }
 
     private String getDeviceEmeiNumber() {
-
-
         TelephonyManager telephonyManager = (TelephonyManager) this.getSystemService(Context.TELEPHONY_SERVICE);
 
         if (telephonyManager != null) {
@@ -62,20 +94,29 @@ public class GetDevInfoActivity extends AppCompatActivity {
     }
 
     private void requestPhoneInfoPermission() {
-        if (ActivityCompat.shouldShowRequestPermissionRationale(this,Manifest.permission.READ_PHONE_STATE)) {
-                Snackbar.make(mLayout, "Phone access is required",
-                        Snackbar.LENGTH_INDEFINITE).setAction("OK", new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        ActivityCompat.requestPermissions(GetDevInfoActivity.this, new String[]{Manifest.permission.READ_PHONE_STATE}, REQUEST_PHONE_INFO);
-                    }
-                }).show();
-            } else {
-                Snackbar.make(mLayout, "Permission is N/A, Requesting...", Snackbar.LENGTH_SHORT).show();
+        if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_PHONE_STATE)) {
+            Snackbar.make(mLayout, "Phone access is required",
+                    Snackbar.LENGTH_INDEFINITE).setAction("OK", new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    ActivityCompat.requestPermissions(GetDevInfoActivity.this, new String[]{Manifest.permission.READ_PHONE_STATE}, REQUEST_PHONE_INFO);
+                }
+            }).show();
+        } else if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.BLUETOOTH_ADMIN)) {
+            Snackbar.make(mLayout, "BL Admin access is required", Snackbar.LENGTH_INDEFINITE).setAction("OK", new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    ActivityCompat.requestPermissions(GetDevInfoActivity.this, new String[]{Manifest.permission.BLUETOOTH_ADMIN}, REQUEST_BL_ADMIN);
+                }
+            }).show();
+        } else {
+            Snackbar.make(mLayout, "Permission is N/A, Requesting...", Snackbar.LENGTH_SHORT).show();
 
-                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_PHONE_STATE}, REQUEST_PHONE_INFO);
-            }
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_PHONE_STATE}, REQUEST_PHONE_INFO);
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.BLUETOOTH_ADMIN}, REQUEST_BL_ADMIN);
         }
+    }
+
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -90,5 +131,7 @@ public class GetDevInfoActivity extends AppCompatActivity {
         }
     }
 
-
 }
+
+
+
