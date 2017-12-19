@@ -10,12 +10,10 @@
     <string name="error_invalid_password">This password is too weak</string>
     <string name="error_incorrect_password">This password is incorrect</string>
     <string name="error_field_required">This field is required</string>
-    <string name="permission_rationale">"Contacts permissions are needed for providing email
-        completions."
-    </string>
-    <string name="title_activity_logout">LogoutActivity</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email completions."</string>
+    <string name="title_activity_restricted">Restricted Activity</string>
     <string name="log_me_out">Log me out</string>
-    <string name="sign_in">Sign in</string>
+    <string name="sign_in_via_email">Sign in @</string>
     <string name="getDeviceId">Get Device Id</string>
     <string name="title_activity_get_dev_id">DevIdActivity</string>
 

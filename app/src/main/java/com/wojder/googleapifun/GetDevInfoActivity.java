@@ -36,8 +36,6 @@ public class GetDevInfoActivity extends AppCompatActivity {
     @BindView(R.id.bleMacAddressNumber)
     TextView bleMacAddressNumber;
 
-
-
     public static final String TAG = GetDevInfoActivity.class.getSimpleName();
     public static final int REQUEST_PHONE_INFO = 0;
     private static final int REQUEST_BL_ADMIN = 1;
@@ -60,22 +58,13 @@ public class GetDevInfoActivity extends AppCompatActivity {
     }
 
     private String getDeviceBleMacAddress() {
+        BluetoothManager ba = (BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);
+        BluetoothAdapter adapter = BluetoothAdapter.getDefaultAdapter();
+        bleMacAddress = adapter.getAddress();
 
-            //if (ActivityCompat.checkSelfPermission(this, Manifest.permission.BLUETOOTH_ADMIN) == PackageManager.PERMISSION_GRANTED) {
-                BluetoothManager ba = (BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);
-                BluetoothAdapter adapter = BluetoothAdapter.getDefaultAdapter();
-
-                //bleMacAddress = ba.getAdapter().getAddress();
-                bleMacAddress = adapter.getAddress();
-            //} else {
-            //    requestBlePermission();
-            //}
         Log.i(TAG, "Device BL mac address is: " + bleMacAddress);
-        return bleMacAddress;
-    }
 
-    private void requestBlePermission() {
-        
+        return bleMacAddress;
     }
 
     private String getDeviceEmeiNumber() {
@@ -87,7 +76,6 @@ public class GetDevInfoActivity extends AppCompatActivity {
             } else {
                 requestPhoneInfoPermission();
             }
-
         }
         Log.i(TAG, "Device EMEI is: " + deviceEmei);
         return deviceEmei;
@@ -117,7 +105,6 @@ public class GetDevInfoActivity extends AppCompatActivity {
         }
     }
 
-
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -130,7 +117,6 @@ public class GetDevInfoActivity extends AppCompatActivity {
             }
         }
     }
-
 }
 
 

@@ -8,7 +8,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.wojder.googleapifun.LoginActivity">
+    tools:context="com.wojder.googleapifun.SigningActivity">
 
     <!-- Login progress -->
     <ProgressBar
@@ -22,7 +22,9 @@
     <ScrollView
         android:id="@+id/login_form"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:paddingStart="0dp"
+        android:paddingEnd="0dp">
 
         <LinearLayout
             android:id="@+id/email_login_form"
@@ -65,31 +67,20 @@
 
             <Button
                 android:id="@+id/buttonLoginPassword"
-                style="?android:textAppearanceSmall"
+                style="@style/Widget.AppCompat.Button.Colored"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:padding="16dp"
-                android:text="@string/sign_in"
+                android:paddingStart="32dp"
+                android:paddingEnd="32dp"
+                android:text="@string/sign_in_via_email"
                 android:visibility="visible" />
-            <Button
-                android:id="@+id/buttonGetDevId"
-                style="?android:textAppearanceSmall"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:padding="16dp"
-                android:text="@string/getDeviceId"
-                android:visibility="visible"
-                android:fontFamily="@string/common_google_play_services_enable_button"/>
 
             <com.google.android.gms.common.SignInButton
                 android:id="@+id/sign_in_button"
-                style="?android:textAppearanceSmall"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:padding="16dp"
                 android:text="@string/action_sign_in"
                 android:textStyle="bold"
                 android:visibility="visible" />
