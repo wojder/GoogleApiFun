@@ -4,12 +4,15 @@ import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothManager;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.net.wifi.WifiInfo;
+import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.View;
@@ -17,10 +20,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.Manifest;
 
+import org.w3c.dom.Text;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class GetDevInfoActivity extends AppCompatActivity {
+
     @BindView(R.id.deviceIdName)
     TextView devIdName;
 
@@ -36,12 +42,20 @@ public class GetDevInfoActivity extends AppCompatActivity {
     @BindView(R.id.bleMacAddressNumber)
     TextView bleMacAddressNumber;
 
+    @BindView(R.id.wifiMacAddressLabel)
+    TextView wifiMacAddressLabel;
+
+    @BindView(R.id.wifiMacAddressNumber)
+    TextView wifiMacAddressNumber;
+
+
     public static final String TAG = GetDevInfoActivity.class.getSimpleName();
     public static final int REQUEST_PHONE_INFO = 0;
     private static final int REQUEST_BL_ADMIN = 1;
 
     String deviceEmei = null;
     String bleMacAddress = null;
+    String wifiMacAddress = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,13 +66,24 @@ public class GetDevInfoActivity extends AppCompatActivity {
 
         getDeviceEmeiNumber();
         getDeviceBleMacAddress();
+        getDeviceWifiMacAddress();
 
         devIdNumber.setText(deviceEmei);
         bleMacAddressNumber.setText(bleMacAddress);
+        wifiMacAddressNumber.setText(wifiMacAddress);
+    }
+
+    private String getDeviceWifiMacAddress() {
+        WifiManager wifiMan = (WifiManager) this.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+        WifiInfo wifiInf = wifiMan.getConnectionInfo();
+        wifiMacAddress = wifiInf.getMacAddress();
+
+        Log.i(TAG, "Device WiFi mac address is: " + wifiMacAddress);
+        return wifiMacAddress;
     }
 
     private String getDeviceBleMacAddress() {
-        BluetoothManager ba = (BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);
+
         BluetoothAdapter adapter = BluetoothAdapter.getDefaultAdapter();
         bleMacAddress = adapter.getAddress();
 
@@ -116,6 +141,12 @@ public class GetDevInfoActivity extends AppCompatActivity {
                 Toast.makeText(this, "Phone permission was denied", Toast.LENGTH_SHORT).show();
             }
         }
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 }
 

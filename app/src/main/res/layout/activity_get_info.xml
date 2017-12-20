@@ -1,61 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/mainView"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp">
+    tools:context="com.wojder.googleapifun.RestrictedAreaActivity">
 
-    <TextView
-        android:id="@+id/deviceIdName"
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+    </android.support.design.widget.AppBarLayout>
+
+    <include layout="@layout/content_device_info" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
         android:layout_width="wrap_content"
-        android:layout_height="@dimen/textview_height"
-        android:fontFamily="monospace"
-        android:text="@string/device_id"
-        android:textSize="10pt"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/bleMacAddress"
-        app:layout_constraintEnd_toStartOf="@+id/deviceIdNumber"
-        app:layout_constraintHorizontal_chainStyle="spread_inside"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        app:srcCompat="@drawable/ic_action_logout_white" />
 
-    <TextView
-        android:id="@+id/deviceIdNumber"
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/textview_height"
-        android:fontFamily="monospace"
-        android:text="@string/device_emei_number"
-        android:textSize="7pt"
-        app:layout_constraintBottom_toTopOf="@+id/bleMacAddressNumber"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/deviceIdName"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/bleMacAddress"
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/textview_height"
-        android:fontFamily="monospace"
-        android:text="@string/device_ble_mac_address"
-        android:textSize="10pt"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/bleMacAddressNumber"
-        app:layout_constraintHorizontal_chainStyle="spread_inside"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/deviceIdName" />
-
-    <TextView
-        android:id="@+id/bleMacAddressNumber"
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/textview_height"
-        android:fontFamily="monospace"
-        android:text="@string/device_ble_mac_address_number"
-        android:textSize="7pt"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/bleMacAddress"
-        app:layout_constraintTop_toBottomOf="@+id/deviceIdNumber" />
-
-</android.support.constraint.ConstraintLayout>
+</android.support.design.widget.CoordinatorLayout>

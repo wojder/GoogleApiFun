@@ -97,4 +97,5 @@
     <string name="device_emei_number">number</string>
     <string name="device_ble_mac_address">BL mac </string>
     <string name="device_ble_mac_address_number">ble mac </string>
+    <string name="device_wifi_mac_address_number">Wifi MAC</string>
 </resources>

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mainView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    tools:showIn="@layout/activity_get_info">
+
+    <TextView
+        android:id="@+id/deviceIdName"
+        android:layout_width="@dimen/text_lenght"
+        android:layout_height="@dimen/textview_height"
+        android:fontFamily="monospace"
+        android:text="@string/device_id"
+        android:textSize="10pt"
+        android:textStyle="bold"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/deviceIdNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/textview_height"
+        android:gravity="center"
+        android:layout_marginStart="8dp"
+        android:fontFamily="monospace"
+        android:text="@string/device_emei_number"
+        android:textSize="7pt"
+        app:layout_constraintStart_toEndOf="@+id/deviceIdName"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/bleMacAddress"
+        android:layout_width="@dimen/text_lenght"
+        android:layout_height="@dimen/textview_height"
+        android:fontFamily="monospace"
+        android:text="@string/device_ble_mac_address"
+        android:textSize="10pt"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/deviceIdName" />
+
+    <TextView
+        android:id="@+id/bleMacAddressNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/textview_height"
+        android:gravity="center"
+        android:fontFamily="monospace"
+        android:text="@string/device_ble_mac_address_number"
+        android:textSize="7pt"
+        app:layout_constraintStart_toStartOf="@+id/deviceIdNumber"
+        app:layout_constraintTop_toBottomOf="@+id/deviceIdNumber" />
+
+    <TextView
+        android:id="@+id/wifiMacAddressLabel"
+        android:layout_width="@dimen/text_lenght"
+        android:layout_height="@dimen/textview_height"
+        android:fontFamily="monospace"
+        android:text="@string/device_wifi_mac_address_number"
+        android:textSize="10pt"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bleMacAddress" />
+
+    <TextView
+        android:id="@+id/wifiMacAddressNumber"
+        android:layout_width="wrap_content"
+        android:gravity="center"
+        android:layout_height="@dimen/textview_height"
+        android:fontFamily="monospace"
+        android:text="@string/device_wifi_mac_address_number"
+        android:textSize="7pt"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintStart_toStartOf="@+id/bleMacAddressNumber"
+        app:layout_constraintTop_toBottomOf="@+id/bleMacAddressNumber" />
+
+</android.support.constraint.ConstraintLayout>

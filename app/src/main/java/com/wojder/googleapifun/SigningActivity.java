@@ -215,7 +215,7 @@ public class SigningActivity extends AppCompatActivity implements LoaderCallback
                             Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
                             showProgress(false);
-                            //updateUI(user);
+                            updateUI(user);
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
@@ -230,7 +230,6 @@ public class SigningActivity extends AppCompatActivity implements LoaderCallback
                 });
 
     }
-
 
     private void populateAutoComplete() {
         if (!mayRequestContacts()) {
