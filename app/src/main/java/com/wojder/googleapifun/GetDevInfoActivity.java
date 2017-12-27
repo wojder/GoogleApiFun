@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
@@ -14,6 +15,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.telephony.TelephonyManager;
+import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
@@ -21,6 +23,8 @@ import android.widget.Toast;
 import android.Manifest;
 
 import org.w3c.dom.Text;
+
+import java.util.Arrays;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -48,14 +52,19 @@ public class GetDevInfoActivity extends AppCompatActivity {
     @BindView(R.id.wifiMacAddressNumber)
     TextView wifiMacAddressNumber;
 
+    @BindView(R.id.currentDateFromBuild)
+    TextView currentDate;
+
 
     public static final String TAG = GetDevInfoActivity.class.getSimpleName();
+    public static final String BUILD_TAG = "BuildTag";
     public static final int REQUEST_PHONE_INFO = 0;
     private static final int REQUEST_BL_ADMIN = 1;
 
     String deviceEmei = null;
     String bleMacAddress = null;
     String wifiMacAddress = null;
+    String currentDateFromTimestamp = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,17 +76,48 @@ public class GetDevInfoActivity extends AppCompatActivity {
         getDeviceEmeiNumber();
         getDeviceBleMacAddress();
         getDeviceWifiMacAddress();
+        getCurrentDate();
 
         devIdNumber.setText(deviceEmei);
         bleMacAddressNumber.setText(bleMacAddress);
         wifiMacAddressNumber.setText(wifiMacAddress);
+        currentDate.setText(getCurrentDate());
+
+        Log.i(BUILD_TAG, "///////////////////////////////////////////////////////");
+        Log.i(BUILD_TAG, "Info from Build class, board: " + Build.BOARD);
+        Log.i(BUILD_TAG, "Info from Build class, device: " + Build.DEVICE);
+        Log.i(BUILD_TAG, "Info from Build class, hardware: " + Build.HARDWARE);
+        Log.i(BUILD_TAG, "Info from Build class, display: " + Build.DISPLAY);
+        Log.i(BUILD_TAG, "Info from Build class, fingerPrint: " + Build.FINGERPRINT);
+        Log.i(BUILD_TAG, "Info from Build class, BRAND: " + Build.BRAND);
+        Log.i(BUILD_TAG, "Info from Build class, PRODUCT: " + Build.PRODUCT);
+        Log.i(BUILD_TAG, "Info from Build class, Radio Version: " + Build.getRadioVersion());
+        Log.i(BUILD_TAG, "Info from Build class, TYPE: " + Build.TYPE);
+        Log.i(BUILD_TAG, "Info from Build class, USER: " + Build.USER);
+        Log.i(BUILD_TAG, "Info from Build class, BOOTLOADER: " + Build.BOOTLOADER);
+        Log.i(BUILD_TAG, "Info from Build class, TIME: " + Build.TIME);
+        Log.i(BUILD_TAG, "Info from Build class, SUPPORTED_ABIS: " + Arrays.toString(Build.SUPPORTED_ABIS));
+    }
+
+    private String getCurrentDate() {
+        Long timestampFromDeviceBuild = Build.TIME;
+
+        String currentTime = DateUtils.formatDateTime(this, timestampFromDeviceBuild, DateUtils.FORMAT_SHOW_TIME);
+        String currentDate = DateUtils.formatDateTime(this, timestampFromDeviceBuild, DateUtils.FORMAT_SHOW_DATE);
+
+        Log.i(TAG, "Current Date and Time from Build class is: " + currentDate + " |||| " + currentTime);
+
+        currentDateFromTimestamp = currentTime + " ||| " + currentDate;
+
+        return currentDateFromTimestamp;
     }
 
     private String getDeviceWifiMacAddress() {
         WifiManager wifiMan = (WifiManager) this.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
-        WifiInfo wifiInf = wifiMan.getConnectionInfo();
-        wifiMacAddress = wifiInf.getMacAddress();
-
+        if (wifiMan != null) {
+            WifiInfo wifiInf = wifiMan.getConnectionInfo();
+            wifiMacAddress = wifiInf.getMacAddress();
+        }
         Log.i(TAG, "Device WiFi mac address is: " + wifiMacAddress);
         return wifiMacAddress;
     }
