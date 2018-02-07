@@ -98,4 +98,7 @@
     <string name="device_ble_mac_address">BL mac </string>
     <string name="device_ble_mac_address_number">ble mac </string>
     <string name="device_wifi_mac_address_number">Wifi MAC</string>
+    <string name="current_time_from_build">TIME FROM BUILD</string>
+    <string name="current_time_from_date">TIME FROM DATE</string>
+    <string name="refreshDb">Refresh DB</string>
 </resources>

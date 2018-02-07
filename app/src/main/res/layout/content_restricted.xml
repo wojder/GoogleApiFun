@@ -23,4 +23,31 @@
         android:fontFamily="casual"
         android:textStyle="bold"/>
 
+    <Button
+        android:id="@+id/buttonRefreshDbValue"
+        style="@style/Widget.AppCompat.Button.Small"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/refreshDb"
+        app:layout_constraintEnd_toEndOf="@id/buttonGetDevId"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/buttonGetDevId"
+        android:fontFamily="casual"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/valueFromDB"
+        android:layout_width="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:text="Hello from DB"
+        app:layout_constraintEnd_toEndOf="@id/buttonGetDevId"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/buttonRefreshDbValue"
+        android:layout_height="@dimen/textview_height"
+        android:gravity="center"/>
+
 </android.support.constraint.ConstraintLayout>

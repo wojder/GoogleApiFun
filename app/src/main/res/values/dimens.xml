@@ -5,4 +5,5 @@
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="textview_height">32dp</dimen>
     <dimen name="text_lenght">128dp</dimen>
+    <dimen name="text_lenght_wide">196dp</dimen>
 </resources>

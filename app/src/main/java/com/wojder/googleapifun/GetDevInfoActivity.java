@@ -1,7 +1,6 @@
 package com.wojder.googleapifun;
 
 import android.bluetooth.BluetoothAdapter;
-import android.bluetooth.BluetoothManager;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.net.wifi.WifiInfo;
@@ -11,9 +10,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.telephony.TelephonyManager;
 import android.text.format.DateUtils;
 import android.util.Log;
@@ -22,9 +19,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.Manifest;
 
-import org.w3c.dom.Text;
-
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -53,18 +51,23 @@ public class GetDevInfoActivity extends AppCompatActivity {
     TextView wifiMacAddressNumber;
 
     @BindView(R.id.currentDateFromBuild)
-    TextView currentDate;
+    TextView currentTimeFromBuild;
+
+    @BindView(R.id.currentDateFromDate)
+    TextView currentDateFromDateClass;
 
 
     public static final String TAG = GetDevInfoActivity.class.getSimpleName();
     public static final String BUILD_TAG = "BuildTag";
     public static final int REQUEST_PHONE_INFO = 0;
     private static final int REQUEST_BL_ADMIN = 1;
+    SimpleDateFormat simpleDateFormat;
 
-    String deviceEmei = null;
+    public String deviceEmei = null;
     String bleMacAddress = null;
     String wifiMacAddress = null;
-    String currentDateFromTimestamp = null;
+    String timeFromBuildClass = null;
+    String timeFromDateClass = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,12 +79,13 @@ public class GetDevInfoActivity extends AppCompatActivity {
         getDeviceEmeiNumber();
         getDeviceBleMacAddress();
         getDeviceWifiMacAddress();
-        getCurrentDate();
+        getCurrentDateFromBuild();
 
         devIdNumber.setText(deviceEmei);
         bleMacAddressNumber.setText(bleMacAddress);
         wifiMacAddressNumber.setText(wifiMacAddress);
-        currentDate.setText(getCurrentDate());
+        currentTimeFromBuild.setText(getCurrentDateFromBuild());
+        currentDateFromDateClass.setText(getCurrentDateFromDate());
 
         Log.i(BUILD_TAG, "///////////////////////////////////////////////////////");
         Log.i(BUILD_TAG, "Info from Build class, board: " + Build.BOARD);
@@ -99,7 +103,19 @@ public class GetDevInfoActivity extends AppCompatActivity {
         Log.i(BUILD_TAG, "Info from Build class, SUPPORTED_ABIS: " + Arrays.toString(Build.SUPPORTED_ABIS));
     }
 
-    private String getCurrentDate() {
+    public String getCurrentDateFromDate() {
+
+        Date dateFromDateClass = new Date();
+        simpleDateFormat = new SimpleDateFormat("yyyy.MM.dd G 'at' HH:mm z");
+        //timeFromDateClass = simpleDateFormat.format(dateFromDateClass);
+
+        timeFromDateClass = DateFormat.getDateTimeInstance(
+                DateFormat.LONG, DateFormat.LONG).format(dateFromDateClass);
+
+        return timeFromDateClass;
+    }
+
+    private String getCurrentDateFromBuild() {
         Long timestampFromDeviceBuild = Build.TIME;
 
         String currentTime = DateUtils.formatDateTime(this, timestampFromDeviceBuild, DateUtils.FORMAT_SHOW_TIME);
@@ -107,9 +123,9 @@ public class GetDevInfoActivity extends AppCompatActivity {
 
         Log.i(TAG, "Current Date and Time from Build class is: " + currentDate + " |||| " + currentTime);
 
-        currentDateFromTimestamp = currentTime + " ||| " + currentDate;
+        timeFromBuildClass = currentTime + " ||| " + currentDate;
 
-        return currentDateFromTimestamp;
+        return timeFromBuildClass;
     }
 
     private String getDeviceWifiMacAddress() {
@@ -132,7 +148,7 @@ public class GetDevInfoActivity extends AppCompatActivity {
         return bleMacAddress;
     }
 
-    private String getDeviceEmeiNumber() {
+    public String getDeviceEmeiNumber() {
         TelephonyManager telephonyManager = (TelephonyManager) this.getSystemService(Context.TELEPHONY_SERVICE);
 
         if (telephonyManager != null) {

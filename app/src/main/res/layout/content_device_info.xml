@@ -79,15 +79,29 @@
 
     <TextView
         android:id="@+id/currentDateFromBuild"
-        android:layout_width="wrap_content"
+        android:layout_width="@dimen/text_lenght"
         android:layout_height="43dp"
         android:layout_marginBottom="8dp"
         android:layout_marginStart="8dp"
         android:ems="5"
         android:gravity="center"
-        android:text="CURRENT TIME"
+        android:text="@string/current_time_from_build"
         android:textColor="@color/colorPrimary"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/currentDateFromDate"
+        android:layout_width="@dimen/text_lenght_wide"
+        android:layout_height="43dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginStart="8dp"
+        android:ems="5"
+        android:gravity="center"
+        android:text="@string/current_time_from_date"
+        android:textColor="@color/colorPrimary"
+        app:layout_constraintBottom_toTopOf="@id/currentDateFromBuild"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
